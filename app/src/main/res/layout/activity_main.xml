@@ -202,6 +202,7 @@
             android:layout_height="wrap_content"
             tools:text="Date"
             android:inputType="number"
+            android:hint="Date"
             android:id="@+id/dateTv"
             />
         <EditText
@@ -209,12 +210,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/monthTv"
             android:inputType="number"
+            android:hint="Month"
             tools:text="Month"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/yearTv"
             android:inputType="number"
+            android:hint="Year"
             tools:text="Year"/>
         <Button
             android:layout_width="wrap_content"

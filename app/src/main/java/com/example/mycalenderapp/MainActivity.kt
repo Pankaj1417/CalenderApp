@@ -103,7 +103,6 @@ class MainActivity : AppCompatActivity() {
     fun showCalander(month: Int, year: Int) {
         myearSpinner.setSelection(year - 1990)
         mmonthSpinner.setSelection(month)
-        Log.e("month and year :", "" + month + " and " + year)
         var firstDay: Int = Date(year,month,1).day-1
         if(firstDay<0)firstDay+=7
         Log.e("First Day" , ""+firstDay)
@@ -202,11 +201,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun leapYear(year: Int): Boolean {
-        var leap = false
-
         if (year % 4 == 0) {
             if (year % 100 == 0) {
-                // year is divisible by 400, hence the year is a leap year
                 return year % 400 == 0
             } else
                 return true
@@ -222,16 +218,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         val year : Int = parseInt(yearTv.text.toString())
-        val month : Int = parseInt(monthTv.text.toString())
+        val month : Int = parseInt(monthTv.text.toString())-1
         val day : Int = parseInt(dateTv.text.toString())
-        if(!isValidDate(day,month,year)) {
+        if(!isValidDate(day,month+1,year)) {
             Toast.makeText(this,"Invalid date",Toast.LENGTH_SHORT).show()
             return
         }
+
         var firstDay: Int = Date(year,0,1).day-1
         if(firstDay<0)firstDay+=7
+        Log.e("firstday",""+firstDay)
         var totalDays: Int = firstDay
-
         if(leapYear(year)){
             if(month > 1 || month == 1 && day == 29)
                 totalDays += 1
@@ -240,12 +237,13 @@ class MainActivity : AppCompatActivity() {
             totalDays += parseInt(monthDays[i])
         }
         totalDays += day
-        var result = -1
+        Log.e("totalday",""+totalDays)
         if(totalDays % 7 == 0){
-            result= totalDays/7
+            screen.text = "Date comes in "+(totalDays/7).toString()+"th week"
+        }else{
+            screen.text = "Date comes in "+((totalDays/7 )+ 1).toString()+"th week"
         }
-        result= totalDays/7 +1
-        screen.text = "Date comes in "+result.toString()+"th week"
+
     }
 
     fun isValidDate(d: Int, m: Int, y: Int): Boolean {
